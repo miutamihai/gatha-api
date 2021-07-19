@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  rxjs-operators-api:
+    container_name: rxjs-operators-api
+    build:
+      context: .
+    volumes:
+    - .:/usr/src/app
+    - /usr/src/app/node_modules
+    ports:
+    - 3000:3000
+    command: yarn start
+    depends_on:
+      - rxjs-operators-db
+    networks:
+      - default
+
+  rxjs-operators-db:
+    container_name: rxjs-operators-db
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: virtual1234
+      POSTGRES_DB: rxjs-operators-db
+      PG_DATA: /var/lib/postgresql/data
+    ports:
+    - 5432:5432
+    networks:
+      - default
+
