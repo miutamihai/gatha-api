@@ -4,8 +4,7 @@ services:
   rxjs-operators-api:
     network_mode: host
     container_name: rxjs-operators-api
-    build:
-      context: .
+    image: rxjs-operators
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules
