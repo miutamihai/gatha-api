@@ -1,11 +1,9 @@
-const {pipe} = require('rxjs')
-const {tap} = require('rxjs/operators')
-const {graphqlHTTP} = require('express-graphql')
+import {pipe} from 'rxjs'
+import {tap} from 'rxjs/operators'
+import {graphqlHTTP} from 'express-graphql'
 
-const buildGraphqlConfig = require('./build-graphql-config')
+import {buildGraphqlConfig} from 'startup/build-graphql-config'
 
-const addGraphqlServer = () => pipe(
+export const addGraphqlServer = () => pipe(
     tap(app => app.use('/graphql', graphqlHTTP(buildGraphqlConfig()))),
 )
-
-module.exports = addGraphqlServer

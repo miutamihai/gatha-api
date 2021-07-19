@@ -1,5 +1,3 @@
-const rootResolver = {
+export const rootResolver = {
     hello: () => 'Hello'
 }
-
-module.exports = rootResolver

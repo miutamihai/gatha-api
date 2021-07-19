@@ -1,10 +1,8 @@
-const schema = require('./schema')
-const rootResolver = require('./root-resolver')
+import {schema} from 'startup/schema'
+import {rootResolver} from 'startup/root-resolver'
 
-const buildGraphqlConfig = () => ({
+export const buildGraphqlConfig = () => ({
     schema,
     rootValue: rootResolver,
     graphiql: true
 })
-
-module.exports = buildGraphqlConfig

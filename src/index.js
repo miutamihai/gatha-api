@@ -1,6 +1,6 @@
-const createExpressApp = require('./startup/create-express-app')
-const addGraphqlServer = require('./startup/add-graphql-server')
-const listen = require('./startup/listen')
+import {createExpressApp} from 'startup/create-express-app'
+import {addGraphqlServer} from 'startup/add-graphql-server'
+import {listen} from 'startup/listen'
 
 createExpressApp()
     .pipe(addGraphqlServer())

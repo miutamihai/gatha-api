@@ -1,6 +1,4 @@
-const {of} = require('rxjs')
-const express = require('express')
+import {of} from 'rxjs'
+import express from 'express'
 
-const createExpressApp = () => of(express())
-
-module.exports = createExpressApp
+export const createExpressApp = () => of(express())
