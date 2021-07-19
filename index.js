@@ -1,12 +1,17 @@
 const express = require('express')
+const {graphqlHTTP} = require('express-graphql')
+
+const schema = require('./schema')
+const rootResolver = require('./root-resolver')
 const app = express()
-const port = 3000
 
-app.get('/', (req, res) => {
-	res.send('Hello world')
-})
+app.use('/graphql', graphqlHTTP({
+	schema,
+	rootValue: rootResolver,
+	graphiql: true
+}))
 
-app.listen(port, () => {
-	console.log(`Listening on port ${port}`)
+app.listen(3000, () => {
+	console.log('Listening on port 3000')
 })
 
