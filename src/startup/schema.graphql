@@ -1,0 +1,9 @@
+type Operator {
+    id: Int,
+    name: String,
+    creational: Boolean
+}
+
+type Query {
+    operators: [Operator]
+}

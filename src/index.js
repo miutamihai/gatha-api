@@ -1,8 +1,8 @@
-import {createExpressApp} from 'startup/create-express-app'
+import {configureApp} from 'startup/configure-app'
 import {addGraphqlServer} from 'startup/add-graphql-server'
 import {listen} from 'startup/listen'
 
-createExpressApp()
+configureApp()
     .pipe(addGraphqlServer())
     .pipe(listen())
     .subscribe()

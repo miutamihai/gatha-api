@@ -1,8 +1,5 @@
-import {schema} from 'startup/schema'
-import {rootResolver} from 'startup/root-resolver'
+import {loadSchema} from 'startup/load-schema'
+import {addResolvers} from 'startup/add-resolvers'
 
-export const buildGraphqlConfig = () => ({
-    schema,
-    rootValue: rootResolver,
-    graphiql: true
-})
+export const buildGraphqlConfig = () => loadSchema()
+    .pipe(addResolvers())
