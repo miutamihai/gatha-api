@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "babel src -d dist --copy-files",
-    "build-docker": "docker build --network host -t rxjs-operators .",
-    "dependencies": "docker-compose up rxjs-operators-db",
+    "build-docker": "docker build --network host -t gatha-api .",
+    "dependencies": "docker-compose up gatha-db",
     "run-docker": "yarn build && yarn build-docker && docker-compose up",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,18 +15,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "2.27.0",
     "express": "4.17.1",
     "express-graphql": "0.12.0",
     "graphql": "15.5.1",
     "graphql-tools": "7.0.5",
+    "neo4j-driver": "4.3.1",
     "rxjs": "7.2.0"
   },
   "devDependencies": {
     "@babel/cli": "7.14.5",
     "@babel/core": "7.14.6",
     "@babel/preset-env": "7.14.7",
-    "babel-plugin-module-resolver": "4.1.0",
-    "prisma": "2.27.0"
+    "babel-plugin-module-resolver": "4.1.0"
   }
 }

@@ -1,5 +1,5 @@
-import {resolver as operators} from 'get-operators'
+import {resolver as person} from 'person'
 
 export const rootResolver = {
-    operators
+    person
 }

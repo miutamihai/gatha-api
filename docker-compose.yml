@@ -1,23 +1,19 @@
 version: "3.7"
 
 services:
-  rxjs-operators-api:
+  gatha-api:
     network_mode: host
-    container_name: rxjs-operators-api
-    image: rxjs-operators
+    container_name: gatha-api
+    image: gatha-api
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules
     command: yarn start
     depends_on:
-      - rxjs-operators-db
+      - gatha-db
 
-  rxjs-operators-db:
-    container_name: rxjs-operators-db
+  gatha-db:
+    container_name: gatha-db
     network_mode: host
-    image: postgres:12
-    environment:
-      POSTGRES_PASSWORD: virtual1234
-      POSTGRES_DB: rxjs-operators-db
-      PG_DATA: /var/lib/postgresql/data
+    image: neo4j:latest
 

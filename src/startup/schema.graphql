@@ -1,9 +1,10 @@
-type Operator {
-    id: Int,
-    name: String,
-    creational: Boolean
-}
+# import Person from '../person/type.graphql'
+# import PersonInput from '../person/type.graphql'
 
 type Query {
-    operators: [Operator]
+   people: [Person]
+}
+
+type Mutation {
+    person(input: PersonInput): Person
 }
