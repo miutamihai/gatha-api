@@ -1,8 +1,8 @@
-import {configureApp} from 'startup/configure-app'
-import {addGraphqlServer} from 'startup/add-graphql-server'
+import {buildGraphqlConfig} from 'startup/build-graphql-config'
+import {createServer} from 'startup/create-server'
 import {listen} from 'startup/listen'
 
-configureApp()
-    .pipe(addGraphqlServer())
+buildGraphqlConfig()
+    .pipe(createServer())
     .pipe(listen())
     .subscribe()
