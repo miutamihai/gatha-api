@@ -1,3 +1,5 @@
 import neo4j from 'neo4j-driver'
 
-export const getDriver = () => neo4j.driver('neo4j://localhost:7687', neo4j.auth.basic('neo4j', 'virtual1234'))
+const makeAuth = () => neo4j.auth.basic(process.env.DB_USER, process.env.DB_PASS)
+
+export const getDriver = () => neo4j.driver(process.env.DB_URL, makeAuth())
