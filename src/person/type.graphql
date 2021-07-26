@@ -3,5 +3,5 @@ type Person {
 }
 
 input PersonInput {
-    name: String
+    name: String!
 }
