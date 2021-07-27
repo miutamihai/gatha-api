@@ -1,5 +1,7 @@
-import {loadSchema} from 'startup/load-schema'
-import {addResolvers} from 'startup/add-resolvers'
+import {loadSchemaFile} from 'startup/load-schema-file'
+import {configureEnv} from 'startup/configure-env'
+import {makeSchema} from 'startup/make-schema'
 
-export const buildGraphqlConfig = () => loadSchema()
-    .pipe(addResolvers())
+export const buildGraphqlConfig = () => loadSchemaFile()
+    .pipe(configureEnv())
+    .pipe(makeSchema())

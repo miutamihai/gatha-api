@@ -1,6 +1,6 @@
-# import Person from '../person/type.graphql'
-# import PersonParameter from '../people/type.graphql'
-# import PersonInput from '../person/type.graphql'
+# import Person from '../person/index.graphql'
+# import PersonParameter from '../people/index.graphql'
+# import PersonInput from '../person/index.graphql'
 
 type Query {
     people(input: PersonParameter): [Person]

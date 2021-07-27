@@ -5,5 +5,5 @@ import express from 'express'
 
 export const createServer = () => pipe(
     map(config => [express(), config]),
-    tap(([app, config]) => app.use('/graphql', graphqlHTTP(config))),
+    tap(([app, {schema}]) => app.use('/graphql', graphqlHTTP({schema}))),
 )
