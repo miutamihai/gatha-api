@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "babel src -d dist --copy-files",
+    "build": "rm -rf ./node_modules/.cache/babel-loader && babel src -d dist --copy-files",
     "build-docker": "docker build --network host -t gatha-api .",
     "dependencies": "docker-compose up gatha-db",
     "run-docker": "yarn build && yarn build-docker && docker-compose up",
@@ -16,10 +16,10 @@
   "license": "ISC",
   "dependencies": {
     "@neo4j/graphql": "1.2.3",
-    "dotenv": "^10.0.0",
-    "express": "4.17.1",
-    "express-graphql": "0.12.0",
+    "apollo-server": "3.0.2",
+    "dotenv": "10.0.0",
     "graphql": "15.5.1",
+    "graphql-tag": "2.12.5",
     "graphql-tools": "7.0.5",
     "neo4j-driver": "4.3.1",
     "rxjs": "7.2.0"
@@ -28,6 +28,7 @@
     "@babel/cli": "7.14.5",
     "@babel/core": "7.14.6",
     "@babel/preset-env": "7.14.7",
+    "babel-plugin-import-graphql": "2.8.1",
     "babel-plugin-module-resolver": "4.1.0"
   }
 }

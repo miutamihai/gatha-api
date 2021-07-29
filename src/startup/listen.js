@@ -1,6 +1,6 @@
-import {pipe} from 'rxjs'
-import {tap} from 'rxjs/operators'
+import {pipe, from} from 'rxjs'
+import {mergeMap} from 'rxjs/operators'
 
 export const listen = () => pipe(
-    tap(([app]) => app.listen(3000, () => console.log('Listening on port 3000')))
+    mergeMap(app => from(app.listen()))
 )

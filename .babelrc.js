@@ -10,5 +10,6 @@ module.exports = {
                 root: [path.resolve(jsConfig.compilerOptions.baseUrl)],
             },
         ],
+        "import-graphql"
     ],
 }

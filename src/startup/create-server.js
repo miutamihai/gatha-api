@@ -1,9 +1,7 @@
 import {pipe} from 'rxjs'
-import {tap, map} from 'rxjs/operators'
-import {graphqlHTTP} from 'express-graphql'
-import express from 'express'
+import {map} from 'rxjs/operators'
+import {ApolloServer} from 'apollo-server'
 
 export const createServer = () => pipe(
-    map(config => [express(), config]),
-    tap(([app, {schema}]) => app.use('/graphql', graphqlHTTP({schema}))),
+    map(({schema}) => new ApolloServer({schema})),
 )
