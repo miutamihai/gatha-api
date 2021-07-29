@@ -15,4 +15,3 @@ The backend part of the gatha project.
 * `4000` -> API
 * `7687` -> Neo4j Client
 * `7474` -> Neo4j Dashboard
-
