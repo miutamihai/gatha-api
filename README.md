@@ -12,6 +12,6 @@ The backend part of the gatha project.
 3. Enjoy
 
 ## Mapped ports
-* `3000` -> API
+* `4000` -> API
 * `7687` -> Neo4j Client
 * `7474` -> Neo4j Dashboard
