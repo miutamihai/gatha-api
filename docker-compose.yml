@@ -2,7 +2,6 @@ version: "3.7"
 
 services:
   gatha-api:
-    network_mode: host
     container_name: gatha-api
     image: gatha-api
     volumes:
@@ -14,6 +13,5 @@ services:
 
   gatha-db:
     container_name: gatha-db
-    network_mode: host
     image: neo4j:latest
 
