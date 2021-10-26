@@ -17,5 +17,6 @@ services:
     container_name: gatha-db
     # If running on Apple M1, use neo4j/neo4j-arm64-experimental:4.1.0-arm64
     image: neo4j:latest
-
-
+    ports:
+      - "7687:7687"
+      - "7474:7474"
