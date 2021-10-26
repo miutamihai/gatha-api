@@ -1,0 +1,79 @@
+scalar Date
+
+interface ModifiedField @relationshipProperties {
+    name: String!
+    value: String!
+}
+
+union Actor = User
+
+union Object = User | Department | Observation | Asset
+
+interface Actionable {
+    actedUpon: Object @relationship(type: "MODIFIED", properties: "ModifiedField", direction: OUT)
+}
+
+interface UnActionable {
+    wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
+}
+
+interface System {
+    entityId: String
+    timestamp: Date
+    createdBy: User @relationship(type: "CREATED_BY", direction: IN)
+}
+
+type User implements System & Actionable {
+    actedUpon: Object @relationship(type: "MODIFIED", properties: "ModifiedField", direction: OUT)
+    entityId: String
+    timestamp: Date
+    createdBy: User @relationship(type: "CREATED_BY", direction: IN)
+
+    personalId: String
+    companyId: String
+    firstName: String
+    lastName: String
+    email: String
+    phone: String
+    picture: String
+    department: Department
+    observations: [Observation]
+}
+
+type Department implements System & UnActionable {
+    wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
+    entityId: String
+    timestamp: Date
+    createdBy: User @relationship(type: "CREATED_BY", direction: IN)
+
+    title: String
+    description: String
+    responsible: User
+    observations: [Observation]
+}
+
+
+type Observation implements System & UnActionable {
+    wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
+    entityId: String
+    timestamp: Date
+    createdBy: User @relationship(type: "CREATED_BY", direction: IN)
+
+    description: String
+}
+
+type Asset implements System & UnActionable {
+    wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
+    entityId: String
+    timestamp: Date
+    createdBy: User @relationship(type: "CREATED_BY", direction: IN)
+
+    type: String
+    serialNumber: String
+    inventoryId: String
+    picture: String
+    title: String
+    description: String
+    department: Department
+    observations: [Observation]
+}
