@@ -3,6 +3,8 @@ version: "3.7"
 services:
   gatha-api:
     container_name: gatha-api
+    ports:
+      - "4000:4000"
     image: gatha-api
     volumes:
     - .:/usr/src/app
@@ -13,5 +15,7 @@ services:
 
   gatha-db:
     container_name: gatha-db
+    # If running on Apple M1, use neo4j/neo4j-arm64-experimental:4.1.0-arm64
     image: neo4j:latest
+
 
