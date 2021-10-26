@@ -23,8 +23,9 @@ interface System {
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 }
 
-type User implements System & Actionable {
+type User implements System & Actionable & UnActionable {
     actedUpon: Object @relationship(type: "MODIFIED", properties: "ModifiedField", direction: OUT)
+    wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
     entityId: String
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
