@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "rm -rf ./node_modules/.cache/babel-loader && babel src -d dist --copy-files",
-    "build-docker": "docker build -t gatha-api .",
-    "dependencies": "docker-compose up gatha-db",
+    "build-docker": "docker build -t gatha.api .",
+    "dependencies": "docker-compose up gatha.db",
     "run-docker": "yarn build && yarn build-docker && docker-compose up",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,7 +21,7 @@
     "graphql": "15.5.1",
     "graphql-tag": "2.12.5",
     "graphql-tools": "7.0.5",
-    "neo4j-driver": "4.3.1",
+    "neo4j-driver": "4.3.4",
     "rxjs": "7.2.0"
   },
   "devDependencies": {
