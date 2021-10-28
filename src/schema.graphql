@@ -9,9 +9,17 @@ interface ModifiedField @relationshipProperties {
     value: String!
 }
 
+interface Assignment @relationshipProperties {
+    startDate: Date!
+    deadline: Date
+    returnDate: Date
+    isAllowedToTakeOutside: Boolean
+    observations: [Observation]
+}
+
 union Actor = User
 
-union Object = User | Department | Observation | Asset
+union Object = User | Department | Observation | Asset | Visitor
 
 interface Actionable {
     actedUpon: Object @relationship(type: "MODIFIED", properties: "ModifiedField", direction: OUT)
@@ -22,7 +30,6 @@ interface UnActionable {
 }
 
 interface System {
-    entityId: String
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 }
@@ -30,7 +37,6 @@ interface System {
 type User implements System & Actionable & UnActionable {
     actedUpon: Object @relationship(type: "MODIFIED", properties: "ModifiedField", direction: OUT)
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    entityId: String
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
@@ -43,24 +49,25 @@ type User implements System & Actionable & UnActionable {
     picture: String
     department: Department
     observations: [Observation]
+    respondsFor: [User] @relationship(type: "RESPONDS_FOR", direction: IN)
+    headsDepartment: [Department] @relationship(type: "RESPONDS_FOR", direction: IN)
+    hasAssigned: [Asset] @relationship(type: "HAS_ASSIGNED", properties: "Assignment", direction: IN)
 }
 
 type Department implements System & UnActionable {
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    entityId: String
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
     title: String
     description: String
-    responsible: User
+    responsible: User @relationship(type: "RESPONDS_FOR", direction: OUT)
     observations: [Observation]
 }
 
 
 type Observation implements System & UnActionable {
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    entityId: String
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
@@ -69,7 +76,6 @@ type Observation implements System & UnActionable {
 
 type Asset implements System & UnActionable {
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    entityId: String
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
@@ -80,5 +86,22 @@ type Asset implements System & UnActionable {
     title: String
     description: String
     department: Department
+    observations: [Observation]
+    isAssignedTo: User @relationship(type: "HAS_ASSIGNED", properties: "Assignment", direction: OUT)
+    responsible: User @relationship(type: "RESPONDS_FOR", direction: OUT)
+}
+
+type Visitor implements System & UnActionable {
+    wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
+    timestamp: Date
+    createdBy: User @relationship(type: "CREATED_BY", direction: IN)
+
+    firstName: String
+    lastName: String
+    personalId: String
+    phone: String
+    email: String
+    expectedDate: Date
+    responsible: User @relationship(type: "RESPONDS_FOR", direction: OUT)
     observations: [Observation]
 }
