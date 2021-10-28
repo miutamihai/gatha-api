@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && node dist/index.js",
+    "start": "rm -rf dist && yarn build && node dist/index.js",
     "build": "rm -rf ./node_modules/.cache/babel-loader && babel src -d dist --copy-files",
     "build-docker": "docker build -t gatha.api .",
     "dependencies": "docker-compose up gatha.db kafka zookeeper",
@@ -16,14 +16,18 @@
   "license": "ISC",
   "dependencies": {
     "@neo4j/graphql": "1.2.3",
-    "apollo-server": "3.0.2",
+    "apollo-server-express": "3.4.0",
+    "cors": "2.8.5",
     "dotenv": "10.0.0",
+    "express": "4.17.1",
     "graphql": "15.5.1",
-    "graphql-kafka-subscriptions": "^0.4.0",
+    "graphql-kafka-subscriptions": "0.4.0",
     "graphql-tag": "2.12.5",
     "graphql-tools": "7.0.5",
     "neo4j-driver": "4.3.4",
-    "rxjs": "7.2.0"
+    "regenerator-runtime": "0.13.9",
+    "rxjs": "7.2.0",
+    "subscriptions-transport-ws": "0.9.19"
   },
   "devDependencies": {
     "@babel/cli": "7.14.5",

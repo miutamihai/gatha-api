@@ -1,5 +1,9 @@
 scalar Date
 
+type Subscription {
+    modified: User
+}
+
 interface ModifiedField @relationshipProperties {
     name: String!
     value: String!

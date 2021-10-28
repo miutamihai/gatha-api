@@ -1,6 +1,7 @@
-import {pipe, from} from 'rxjs'
-import {mergeMap} from 'rxjs/operators'
+import {pipe} from 'rxjs'
+import {tap} from 'rxjs/operators'
+import {printStatus} from 'print-status'
 
 export const listen = () => pipe(
-    mergeMap(app => from(app.listen()))
+    tap(app => app.listen(process.env.APP_PORT, printStatus))
 )

@@ -1,1 +1,1 @@
-export const printStatus = ({url}) => console.log(`App listening at ${url}`)
+export const printStatus = () => console.log(`App listening on port ${process.env.APP_PORT}`)
