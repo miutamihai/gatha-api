@@ -5,30 +5,52 @@ services:
     container_name: gatha.api
     ports:
       - "4000:4000"
-    image: gatha-api
+    image: gatha.api
     volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules
     command: yarn start
-    tty: true
-    stdin_open: true
-    network_mode: bridge
     depends_on:
       - gatha.db
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "12181:12181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 12181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - "19092:19092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:12181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:19092
 
   gatha.db:
     container_name: gatha.db
     # If running on Apple M1, use neo4j/neo4j-arm64-experimental:4.3.6-arm64
+    # Otherwise use neo4j:latest
     image: neo4j:latest
-    tty: true
-    stdin_open: true
-    network_mode: bridge
     ports:
       - "7687:7687"
       - "7474:7474"
+    depends_on:
+      - kafka
+    volumes:
+      - ./neo4j/plugins:/plugins
     environment:
-      - NEO4J_dbms_security_auth__enabled=false
-      - NEO4J_dbms_default__listen__address=0.0.0.0
-      - NEO4J_dbms_connector_bolt_listen__address=:7687
-      - NEO4J_dbms_connector_bolt_advertised__address=:7687
-
+      NEO4J_AUTH: neo4j/streams
+      NEO4J_dbms_logs_debug_level: DEBUG
+      # KAFKA related configuration
+      NEO4J_kafka_bootstrap_servers: kafka:19092
+      NEO4J_streams_source_topic_nodes_neo4j: User{*}
+      NEO4J_streams_source_topic_relationships_neo4j: MODIFIED{*}
