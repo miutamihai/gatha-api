@@ -1,9 +1,22 @@
-import { makeKafkaSubscription } from 'make-kafka-subscription'
+import { PubSub } from 'graphql-subscriptions';
+
+const pubsub = new PubSub();
 
 export const makeResolvers = () => ({
 	Subscription: {
 		modified: {
-			subscribe: () => makeKafkaSubscription().asyncIterator('neo4j')
+			subscribe() {
+				setTimeout(() => {
+					pubsub.publish('MODIFIED', {
+						modified: {
+							firstName: 'Mihai',
+							lastName: 'Miuta'
+						}
+					})
+				}, 2000)
+
+				return pubsub.asyncIterator('MODIFIED')
+			}
 		}
 	}
 })
