@@ -30,16 +30,16 @@ interface UnActionable {
 }
 
 interface System {
-    id: ID
-    timestamp: Date
+    id: ID @id
+    timestamp: Date @timestamp
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 }
 
 type User implements System & Actionable & UnActionable {
-    id: ID
+    id: ID @id
     actedUpon: Object @relationship(type: "MODIFIED", properties: "ModifiedField", direction: OUT)
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    timestamp: Date
+    timestamp: Date @timestamp
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
     personalId: String
@@ -57,9 +57,9 @@ type User implements System & Actionable & UnActionable {
 }
 
 type Department implements System & UnActionable {
-    id: ID
+    id: ID @id
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    timestamp: Date
+    timestamp: Date @timestamp
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
     title: String
@@ -70,18 +70,18 @@ type Department implements System & UnActionable {
 
 
 type Observation implements System & UnActionable {
-    id: ID
+    id: ID @id
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    timestamp: Date
+    timestamp: Date @timestamp
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
     description: String
 }
 
 type Asset implements System & UnActionable {
-    id: ID
+    id: ID @id
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    timestamp: Date
+    timestamp: Date @timestamp
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
     type: String
@@ -97,9 +97,9 @@ type Asset implements System & UnActionable {
 }
 
 type Visitor implements System & UnActionable {
-    id: ID
+    id: ID @id
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
-    timestamp: Date
+    timestamp: Date @timestamp
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 
     firstName: String

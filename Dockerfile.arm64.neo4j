@@ -1,0 +1,20 @@
+FROM neo4j/neo4j-arm64-experimental:4.3.6-arm64
+
+ENV NEO4J_HOME="/var/lib/neo4j" \
+    NEO4J_PASSWD=streams
+
+COPY ./seeds/assets.csv ${NEO4J_HOME}/import/
+COPY ./seeds/assets.cypher ${NEO4J_HOME}/import/
+
+COPY ./seeds/users.csv ${NEO4J_HOME}/import/
+COPY ./seeds/users.cypher ${NEO4J_HOME}/import/
+
+# set initial-password to start loading the data
+# sleep for 10 secs for neo4j to start without any overlapping
+
+CMD bin/neo4j-admin set-initial-password ${NEO4J_PASSWD} && \
+    bin/neo4j start && sleep 10 && \
+    if [ -f "${NEO4J_HOME}/import/users.cypher" ]; then  \
+        cat ${NEO4J_HOME}/import/users.cypher | NEO4J_USERNAME=neo4j NEO4J_PASSWORD=${NEO4J_PASSWD} bin/cypher-shell --fail-fast && \
+         cat ${NEO4J_HOME}/import/assets.cypher | NEO4J_USERNAME=neo4j NEO4J_PASSWORD=${NEO4J_PASSWD} bin/cypher-shell --fail-fast && rm ${NEO4J_HOME}/import/* \
+    fi && /bin/bash
