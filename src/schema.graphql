@@ -1,7 +1,12 @@
 scalar Date
 
+type UserCred {
+    firstName: String
+    lastName: String
+}
+
 type Subscription {
-    modified: User
+    modified: UserCred
 }
 
 interface ModifiedField @relationshipProperties {
