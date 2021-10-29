@@ -30,11 +30,13 @@ interface UnActionable {
 }
 
 interface System {
+    id: ID
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
 }
 
 type User implements System & Actionable & UnActionable {
+    id: ID
     actedUpon: Object @relationship(type: "MODIFIED", properties: "ModifiedField", direction: OUT)
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
     timestamp: Date
@@ -55,6 +57,7 @@ type User implements System & Actionable & UnActionable {
 }
 
 type Department implements System & UnActionable {
+    id: ID
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
@@ -67,6 +70,7 @@ type Department implements System & UnActionable {
 
 
 type Observation implements System & UnActionable {
+    id: ID
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
@@ -75,6 +79,7 @@ type Observation implements System & UnActionable {
 }
 
 type Asset implements System & UnActionable {
+    id: ID
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
@@ -92,6 +97,7 @@ type Asset implements System & UnActionable {
 }
 
 type Visitor implements System & UnActionable {
+    id: ID
     wasActedUpon: Actor @relationship(type: "MODIFIED", properties: "ModifiedField", direction: IN)
     timestamp: Date
     createdBy: User @relationship(type: "CREATED_BY", direction: IN)
